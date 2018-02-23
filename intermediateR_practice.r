@@ -196,3 +196,102 @@ for (log in logs) {
 
 # Display the structure of failures
 str(failures)
+
+#CHAPTER 3
+# Call max() on timestamps
+max(timestamps)
+
+# What is the date of the latest timestamp?
+as.Date(max(timestamps))
+
+# Print out timestamps
+timestamps
+
+# Call max() on timestamps, no additional arguments
+max(timestamps)
+
+# Call max() on timestamps, specify na.rm
+max(timestamps, na.rm = TRUE
+
+# Build a function extract_info(): use for loop, add return statement
+extract_info <- function(x) {
+  # body
+  info <- c()
+  for (log in x) {
+    info <- c(info, log$timestamp)
+  }
+  return(info)
+}
+
+# Call extract_info() on logs
+extract_info(logs)
+
+# Adapt the extract_info() function.
+extract_info <- function(x, property) {
+  info <- c()
+  for (log in x) {
+   info <- c(info, log[[property]])
+  }
+  return(info)
+}
+
+# Call extract_info() on logs, set property to "timestamp"
+extract_info(logs, "timestamp")
+
+# Call extract_info() on logs, set property to "success"
+extract_info(logs, "success")
+
+# Add default value for property argument
+extract_info <- function(x, property = "success") {
+  info <- c()
+  for (log in x) {
+   info <- c(info, log[[property]])
+  }
+  return(info)
+}
+
+# Call extract_info() on logs, don't specify property
+extract_info(logs)
+
+# Call extract_info() on logs, set property to "timestamp"
+extract_info(logs, "timestamp")
+
+# Adapt extract_info():
+# - add argument with default value
+# - change function body
+extract_info <- function(x, property = "success", include_all = TRUE) {
+  info <- c()
+  for (log in x) {
+    # add if construct around the line below
+    if (include_all || !log$success) {
+      info <- c(info, log[[property]])
+    }
+  }
+  return(info)
+}
+
+# Call extract_info() on logs, no additional arguments
+extract_info(logs)
+
+# Call extract_info() on logs, set include_all to FALSE
+extract_info(logs, include_all = FALSE)
+
+# Generate vector of messages
+extract_info(logs, property = c("details", "message"))
+
+# Generate vector of locations for failed log entries
+extract_info(logs, property = c("details", "location"), include_all = FALSE)
+
+# Write the function compute_fail_pct
+compute_fail_pct <- function(x) {
+  i = 0
+  for(log in x) {
+    if(!log$success) {
+      i <- i + 1
+    }
+  }
+  i/length(x) * 100
+}
+
+# Call compute_fail_pct on logs
+compute_fail_pct(logs)
