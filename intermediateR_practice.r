@@ -295,3 +295,71 @@ compute_fail_pct <- function(x) {
 
 # Call compute_fail_pct on logs
 compute_fail_pct(logs)
+
+#CHAPTER 4
+# Call length() on each element of logs
+lapply(logs, length)
+
+# Call class() on each element of logs
+lapply(logs, class)
+
+# Define get_timestamp()
+get_timestamp <- function(x) {
+  return(x$timestamp)
+}
+
+# Apply get_timestamp() over all elements in logs
+lapply(logs, get_timestamp)
+
+# Have lapply() use an anonymous function
+lapply(logs, function(x) {x$timestamp})
+
+# Replace the anonymous function with `[[` 
+lapply(logs, '[[', "timestamp")
+
+# Call length() on each element of logs using sapply()
+sapply(logs, length)
+
+# Definition of get_timestamp
+get_timestamp <- function(x) {
+  x$timestamp
+}
+
+# Get vector of log entries' timestamps
+sapply(logs, get_timestamp)
+
+# Use sapply() to select the success element from each log: results
+results <- sapply(logs, '[[', "success")
+
+# Call mean() on results
+mean(results)
+
+# Use sapply() to select the details element from each log
+sapply(logs, '[[', "details")
+
+# Implement function get_failure_loc
+get_failure_loc <- function(x) {
+  if (x$success) {
+    return(NULL)
+  } else {
+    return(x$details$location)
+  }
+}
+
+# Use sapply() to call get_failure_loc on logs
+sapply(logs, get_failure_loc)
+
+# Convert the sapply call to vapply
+vapply(logs, length, integer(1))
+
+# Convert the sapply call to vapply
+vapply(logs, `[[`, "success", FUN.VALUE = logical(1))
+
+# Convert the sapply() call to a vapply() or lapply() call
+vapply(logs, `[[`, c("details", "message"), FUN.VALUE = character(1))
+
+# Convert the sapply() call to a vapply() or lapply() call
+lapply(logs, function(x) { x$details })
+
+# Return vector with uppercase version of message elements in log entries
+toupper(vapply(logs, '[[', c("details", "message"), FUN.VALUE = character(1)))
