@@ -49,3 +49,80 @@ is.list(chess)
 
 # How many pieces are left on the board?
 length(unlist(chess))
+
+#CHAPTER2
+# Create get_n_elements
+get_n_elements <- function(x, ...) {
+  UseMethod("get_n_elements")
+}
+
+# View get_n_elements
+get_n_elements
+
+# Create a data.frame method for get_n_elements
+get_n_elements.data.frame <- function(x, ...) {
+  nrow(x) * ncol(x)
+}
+
+# Call the method on the sleep dataset
+n_elements_sleep <- get_n_elements.data.frame(sleep)
+
+# View the result
+n_elements_sleep
+
+# View pre-defined objects
+ls.str()
+
+# Create a default method for get_n_elements
+get_n_elements.default <- function(x, ...) {
+  length(unlist(x))
+}
+
+# Call the method on the ability.cov dataset
+n_elements_ability.cov <- get_n_elements.default(ability.cov)
+
+# Find methods for print
+methods("print")
+
+# View the structure of hair
+str(hair)
+
+# What primitive generics are available?
+.S3PrimitiveGenerics
+
+# Does length.hairstylist exist?
+exists("length.hairstylist")
+
+# What is the length of hair?
+length(hair)
+
+# Inspect your workspace
+ls.str()
+
+# cat method
+what_am_i.cat <- function(x, ...)
+{
+  # Write a message
+  message("I'm a cat")
+  # Call NextMethod
+  NextMethod("what_am_i")
+}
+
+# mammal method
+what_am_i.mammal <- function(x, ...)
+{
+  # Write a message
+  message("I'm a mammal")
+  # Call NextMethod
+  NextMethod("what_am_i")
+}
+
+# character method
+what_am_i.character <- function(x, ...)
+{
+  # Write a message
+  message("I'm a character vector")
+}
+
+# Call what_am_i()
+what_am_i(kitty)
